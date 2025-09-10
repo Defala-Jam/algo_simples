@@ -9,7 +9,7 @@ function App() {
       <Routes>
 
         <Route path="/" element={<Path_player />} />
-        <Route path='/perfil' element={<Perfil/>} />
+        <Route path='/profile' element={<Perfil/>} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         
       </Routes>
