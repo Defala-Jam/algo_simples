@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
-import Sidebar from "../../components/sidebar/sidebar"
+import Sidebar from "../../components/sidebar/Sidebar"
 import "./path_player.css"
 
 const Path_player: React.FC = () => {
