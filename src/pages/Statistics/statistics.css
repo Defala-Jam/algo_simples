@@ -1,16 +1,18 @@
 .statistics-container {
   display: flex;
   min-height: 100vh;
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+  background: #1e293b;
+  color: white;
+  font-family: var(--font-sans);
 }
 
 .statistics-main {
   flex: 1;
   padding: 2rem;
   margin-left: 280px;
-  margin-right: 300px;
-  max-width: calc(100vw - 580px);
+  margin-right: 320px;
+  max-width: calc(100vw - 600px);
+  overflow-y: auto;
 }
 
 .statistics-header {
@@ -21,11 +23,12 @@
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
-  color: var(--color-foreground);
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .statistics-header p {
-  color: var(--color-muted-foreground);
+  color: #94a3b8;
   font-size: 1.1rem;
 }
 
@@ -38,7 +41,8 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: var(--color-foreground);
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .journey-cards {
@@ -48,8 +52,9 @@
 }
 
 .journey-card {
-  background: var(--color-card);
-  border: 2px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   cursor: pointer;
@@ -57,14 +62,14 @@
 }
 
 .journey-card:hover {
-  border-color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
 }
 
 .journey-card.active {
-  border-color: var(--color-primary);
-  background: var(--color-primary);
-  color: var(--color-primary-foreground);
+  border: 1px solid #10b981;
+  background: rgba(16, 185, 129, 0.15);
+  color: white;
 }
 
 .journey-info h3 {
@@ -74,7 +79,7 @@
 }
 
 .journey-info p {
-  opacity: 0.8;
+  color: #cbd5e1;
   margin-bottom: 1rem;
 }
 
@@ -87,14 +92,14 @@
 .progress-bar {
   flex: 1;
   height: 8px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  background: var(--color-accent);
+  background: #10b981;
   border-radius: 4px;
   transition: width 0.3s ease;
 }
@@ -102,9 +107,10 @@
 .progress-text {
   font-weight: 600;
   font-size: 0.9rem;
+  color: #94a3b8;
 }
 
-/* Journey Overview */
+/* Overview Stats */
 .journey-overview {
   margin-bottom: 2rem;
 }
@@ -113,7 +119,8 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: var(--color-foreground);
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .overview-stats {
@@ -123,31 +130,38 @@
 }
 
 .overview-card {
-  background: var(--color-card);
-  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.overview-card:hover {
+  transform: translateY(-2px);
 }
 
 .overview-value {
   font-size: 2rem;
   font-weight: bold;
-  color: var(--color-primary);
+  color: #10b981;
   margin-bottom: 0.5rem;
 }
 
 .overview-label {
-  color: var(--color-muted-foreground);
+  color: #94a3b8;
   font-size: 0.9rem;
 }
 
-/* Tag Statistics */
+/* Tags Section */
 .tags-section h2 {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: var(--color-foreground);
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .tags-grid {
@@ -157,8 +171,8 @@
 }
 
 .tag-card {
-  background: var(--color-card);
-  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   transition: transform 0.2s ease;
@@ -184,7 +198,7 @@
 .tag-header h3 {
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--color-card-foreground);
+  color: white;
 }
 
 .tag-stats {
@@ -201,13 +215,13 @@
 .stat-value {
   font-size: 1.5rem;
   font-weight: bold;
-  color: var(--color-card-foreground);
+  color: white;
   margin-bottom: 0.25rem;
 }
 
 .stat-label {
   font-size: 0.8rem;
-  color: var(--color-muted);
+  color: #94a3b8;
 }
 
 .tag-progress {
@@ -219,21 +233,21 @@
   position: fixed;
   right: 0;
   top: 0;
-  width: 300px;
+  width: 320px;
   height: 100vh;
-  background: var(--color-sidebar);
-  border-left: 1px solid var(--color-sidebar-border);
+  background: #1e293b;
+  border-left: 1px solid #334155;
   padding: 2rem 1.5rem;
   overflow-y: auto;
 }
 
 .stats-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  margin-bottom: 2rem;
   display: flex;
   justify-content: space-around;
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background: var(--color-sidebar-accent);
-  border-radius: var(--radius-lg);
 }
 
 .stats-section .stat-item {
@@ -245,30 +259,28 @@
 
 .stat-icon {
   font-size: 1.5rem;
+  color: #10b981;
 }
 
 .stats-section .stat-value {
   font-weight: bold;
-  color: var(--color-sidebar-foreground);
+  color: white;
 }
 
-.quick-actions {
-  margin-bottom: 2rem;
-}
-
-.quick-actions h3 {
+.quick-actions h3,
+.recent-activity h3 {
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: var(--color-sidebar-foreground);
+  color: white;
 }
 
 .action-btn {
   width: 100%;
   padding: 0.75rem;
   margin-bottom: 0.5rem;
-  background: var(--color-primary);
-  color: var(--color-primary-foreground);
+  background: #10b981;
+  color: white;
   border: none;
   border-radius: var(--radius-md);
   font-weight: 500;
@@ -277,14 +289,7 @@
 }
 
 .action-btn:hover {
-  background: var(--color-sidebar-primary);
-}
-
-.recent-activity h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--color-sidebar-foreground);
+  background: #059669;
 }
 
 .activity-list {
@@ -298,27 +303,24 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem;
-  background: var(--color-sidebar-accent);
+  background: #334155;
   border-radius: var(--radius-md);
 }
 
 .activity-icon {
   font-size: 1.2rem;
-}
-
-.activity-text {
-  flex: 1;
+  color: #10b981;
 }
 
 .activity-text > div:first-child {
   font-weight: 500;
-  color: var(--color-sidebar-foreground);
+  color: white;
   margin-bottom: 0.25rem;
 }
 
 .activity-time {
   font-size: 0.8rem;
-  color: var(--color-muted-foreground);
+  color: #94a3b8;
 }
 
 /* Responsive Design */
@@ -334,21 +336,23 @@
 }
 
 @media (max-width: 768px) {
-  .statistics-main {
-    margin-left: 0;
-    max-width: 100vw;
-    padding: 1rem;
+  .statistics-container {
+    flex-direction: column;
   }
 
-  .journey-cards {
+  .statistics-main {
+    margin: 0;
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+
+  .journey-cards,
+  .overview-stats,
+  .tags-grid {
     grid-template-columns: 1fr;
   }
 
-  .overview-stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .tags-grid {
+  .tag-stats {
     grid-template-columns: 1fr;
   }
 }

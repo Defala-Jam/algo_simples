@@ -21,11 +21,11 @@ interface Journey {
 }
 
 const Statistics: React.FC = () => {
-  const [activeNavItem, setActiveNavItem] = useState("more")
+  const [activeNavItem, setActiveNavItem] = useState("statistics")
   const [selectedJourney, setSelectedJourney] = useState("algorithms")
 
   const navigator = (item: string) => {
-    setActiveNavItem("more")
+    setActiveNavItem(item)
     console.log(`[v0] Navigating to: ${item}`)
     // Add your navigation logic here (e.g., routing, content switching)
   }
