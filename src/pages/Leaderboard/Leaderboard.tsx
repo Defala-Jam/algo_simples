@@ -10,8 +10,6 @@ const Leaderboard: React.FC = () => {
 
   const navigator = (item: string) => {
     setActiveNavItem(item)
-    console.log(`[v0] Navigating to: ${item}`)
-    // Aqui futuramente pode entrar sua lógica de rotas
   }
 
   // Exemplo de ranking estático
@@ -51,12 +49,15 @@ const Leaderboard: React.FC = () => {
 
       {/* Sidebar direita */}
       <div className="right-sidebar">
+        {/* Progresso da Semana */}
         <div className="widget">
           <div className="widget-header">
-            <h3>Status</h3>
+            <h3>Progresso da Semana</h3>
           </div>
           <div className="widget-content">
-            <p>Escolha seu status futuramente...</p>
+            <p>📘 Lições: 3/7</p>
+            <p>⚡ Desafios: 1/3</p>
+            <p>🔥 Dias Seguidos: 4</p>
           </div>
         </div>
       </div>
