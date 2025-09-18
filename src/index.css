@@ -66,3 +66,28 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+:root {
+  --color-background: #f9fafb;
+  --color-foreground: #111827;
+  --color-muted-foreground: #6b7280;
+
+  --color-card: #ffffff;
+  --color-card-foreground: #111827;
+  --color-border: #e5e7eb;
+
+  --radius-lg: 12px;
+  --radius-md: 8px;
+
+  --color-primary: #2563eb;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #10b981;
+
+  --color-sidebar: #f3f4f6;
+  --color-sidebar-border: #d1d5db;
+  --color-sidebar-accent: #e5e7eb;
+  --color-sidebar-primary: #1d4ed8;
+  --color-sidebar-foreground: #111827;
+
+  --color-muted: #9ca3af;
+}
