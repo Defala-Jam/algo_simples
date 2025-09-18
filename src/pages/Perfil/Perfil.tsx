@@ -53,6 +53,13 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
     },
   ]
 
+  const userStats = {
+    averageResponseTime: "2.3s",
+    correctAnswers: 47,
+    totalQuestions: 52,
+    leaderboardPosition: 12,
+  }
+
   const navigator = (item: string) => {
     console.log(`[v0] Navigating to: ${item}`)
     setActiveItem(item)
@@ -82,7 +89,7 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
         <div className="perfil-content">
           <div className="perfil-header" style={{ background: backgroundPresets[selectedBackground].gradient }}>
             <div className="avatar-silhouette">
-              <div className="silhouette-icon">+</div>
+              <div className="avatar-display">{avatarPresets[selectedAvatar].emoji}</div>
             </div>
             <button className="edit-button">✏️</button>
           </div>
@@ -170,14 +177,24 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
       </div>
 
       <div className="right-sidebar">
-        <div className="promo-banner">
-          <div className="promo-content">
-            <h3>Hello World Sale</h3>
-            <p>Get up to 25% OFF - this time only!</p>
-            <p className="promo-timer">Ends in: 32:10:10</p>
+        <div className="stats-banner">
+          <div className="stats-content">
+            <h3>Your Statistics</h3>
+            <div className="user-stat-item">
+              <span className="stat-label">Avg. Response Time</span>
+              <span className="stat-value">{userStats.averageResponseTime}</span>
+            </div>
+            <div className="user-stat-item">
+              <span className="stat-label">Journey Progress</span>
+              <span className="stat-value">
+                {userStats.correctAnswers}/{userStats.totalQuestions}
+              </span>
+            </div>
+            <div className="user-stat-item">
+              <span className="stat-label">Leaderboard Rank</span>
+              <span className="stat-value">#{userStats.leaderboardPosition}</span>
+            </div>
           </div>
-          <div className="promo-character">👨‍💻</div>
-          <button className="promo-button">GO PRO</button>
         </div>
 
         <div className="actions-section">
