@@ -1,34 +1,39 @@
 .statistics-container {
   display: flex;
+  justify-content: center;   /* Centraliza horizontal */
+  align-items: flex-start;   /* Mantém o topo alinhado (use center se quiser centralizar vertical também) */
   min-height: 100vh;
-  background: #1e293b;
-  color: white;
-  font-family: var(--font-sans);
+  background-color: #1e293b;
+  color: #ffffff;
 }
 
+/* Conteúdo central */
 .statistics-main {
   flex: 1;
+  max-width: 1000px;        /* largura máxima */
   padding: 2rem;
-  margin-left: 280px;
-  margin-right: 320px;
-  max-width: calc(100vw - 600px);
-  overflow-y: auto;
+  margin: 0 auto;           /* garante centralização */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+
+/* Header */
 .statistics-header {
   margin-bottom: 2rem;
 }
-;
+
 .statistics-header h1 {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
 }
 
 .statistics-header p {
-  color: #94a3b8;
+  color: #94a3b8; /* cinza claro */
   font-size: 1.1rem;
 }
 
@@ -41,8 +46,7 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: white;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  color: #ffffff;
 }
 
 .journey-cards {
@@ -52,24 +56,24 @@
 }
 
 .journey-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-lg);
+  background: #334155; /* cinza-azulado */
+  border: 2px solid #475569;
+  border-radius: 12px;
   padding: 1.5rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  color: #ffffff;
 }
 
 .journey-card:hover {
-  background: rgba(255, 255, 255, 0.1);
+  border-color: #10b981; /* verde */
   transform: translateY(-2px);
 }
 
 .journey-card.active {
-  border: 1px solid #10b981;
-  background: rgba(16, 185, 129, 0.15);
-  color: white;
+  border-color: #10b981;
+  background: #10b981;
+  color: #ffffff;
 }
 
 .journey-info h3 {
@@ -79,7 +83,7 @@
 }
 
 .journey-info p {
-  color: #cbd5e1;
+  opacity: 0.8;
   margin-bottom: 1rem;
 }
 
@@ -92,14 +96,14 @@
 .progress-bar {
   flex: 1;
   height: 8px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 4px;
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  background: #10b981;
+  background: #3b82f6; /* azul */
   border-radius: 4px;
   transition: width 0.3s ease;
 }
@@ -107,10 +111,9 @@
 .progress-text {
   font-weight: 600;
   font-size: 0.9rem;
-  color: #94a3b8;
 }
 
-/* Overview Stats */
+/* Journey Overview */
 .journey-overview {
   margin-bottom: 2rem;
 }
@@ -119,8 +122,7 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: white;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  color: #ffffff;
 }
 
 .overview-stats {
@@ -130,17 +132,11 @@
 }
 
 .overview-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-lg);
+  background: #334155;
+  border: 1px solid #475569;
+  border-radius: 12px;
   padding: 1.5rem;
   text-align: center;
-  transition: transform 0.2s ease;
-}
-
-.overview-card:hover {
-  transform: translateY(-2px);
 }
 
 .overview-value {
@@ -155,13 +151,12 @@
   font-size: 0.9rem;
 }
 
-/* Tags Section */
+/* Tag Statistics */
 .tags-section h2 {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: white;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  color: #ffffff;
 }
 
 .tags-grid {
@@ -171,11 +166,12 @@
 }
 
 .tag-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-lg);
+  background: #334155;
+  border: 1px solid #475569;
+  border-radius: 12px;
   padding: 1.5rem;
   transition: transform 0.2s ease;
+  color: #ffffff;
 }
 
 .tag-card:hover {
@@ -198,24 +194,29 @@
 .tag-header h3 {
   font-size: 1.1rem;
   font-weight: 600;
-  color: white;
+  color: #ffffff;
 }
 
 .tag-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  display: flex;                 /* troca grid por flex */
+  justify-content: space-between;/* distribui bem os itens */
+  flex-wrap: wrap;               /* permite quebrar linha se precisar */
+  gap: 0.5rem;
   margin-bottom: 1rem;
 }
 
 .stat-item {
+  flex: 1;                       /* cada item ocupa espaço igual */
   text-align: center;
+  min-width: 80px;               /* garante que não esmague demais */
 }
+
+
 
 .stat-value {
   font-size: 1.5rem;
   font-weight: bold;
-  color: white;
+  color: #ffffff;
   margin-bottom: 0.25rem;
 }
 
@@ -230,49 +231,57 @@
 
 /* Right Sidebar */
 .statistics-right-sidebar {
-  position: fixed;
-  right: 0;
-  top: 0;
-  width: 320px;
-  height: 100vh;
+  width: 300px;
   background: #1e293b;
   border-left: 1px solid #334155;
   padding: 2rem 1.5rem;
-  overflow-y: auto;
+  color: #ffffff;
+  height: auto;          /* acompanha o conteúdo */
+  position: relative;    /* volta pro fluxo do flex */
 }
 
+
 .stats-section {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: var(--radius-lg);
-  padding: 1rem;
-  margin-bottom: 2rem;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #334155;
+  border-radius: 12px;
+  box-sizing: border-box;
+  max-width: 100%;   /* garante que nunca ultrapasse */
 }
+
 
 .stats-section .stat-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  text-align: center;
+  min-width: 60px; /* garante tamanho mínimo para alinhamento */
 }
+
 
 .stat-icon {
   font-size: 1.5rem;
-  color: #10b981;
 }
 
 .stats-section .stat-value {
   font-weight: bold;
-  color: white;
+  color: #ffffff;
 }
 
-.quick-actions h3,
-.recent-activity h3 {
+.quick-actions {
+  margin-bottom: 2rem;
+}
+
+.quick-actions h3 {
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: white;
+  color: #ffffff;
 }
 
 .action-btn {
@@ -280,9 +289,9 @@
   padding: 0.75rem;
   margin-bottom: 0.5rem;
   background: #10b981;
-  color: white;
+  color: #ffffff;
   border: none;
-  border-radius: var(--radius-md);
+  border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -290,6 +299,13 @@
 
 .action-btn:hover {
   background: #059669;
+}
+
+.recent-activity h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #ffffff;
 }
 
 .activity-list {
@@ -304,17 +320,20 @@
   gap: 0.75rem;
   padding: 0.75rem;
   background: #334155;
-  border-radius: var(--radius-md);
+  border-radius: 8px;
 }
 
 .activity-icon {
   font-size: 1.2rem;
-  color: #10b981;
+}
+
+.activity-text {
+  flex: 1;
 }
 
 .activity-text > div:first-child {
   font-weight: 500;
-  color: white;
+  color: #ffffff;
   margin-bottom: 0.25rem;
 }
 
@@ -336,23 +355,21 @@
 }
 
 @media (max-width: 768px) {
-  .statistics-container {
-    flex-direction: column;
-  }
-
   .statistics-main {
-    margin: 0;
-    padding: 1.5rem;
-    max-width: 100%;
+    margin-left: 0;
+    max-width: 100vw;
+    padding: 1rem;
   }
 
-  .journey-cards,
-  .overview-stats,
-  .tags-grid {
+  .journey-cards {
     grid-template-columns: 1fr;
   }
 
-  .tag-stats {
+  .overview-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tags-grid {
     grid-template-columns: 1fr;
   }
 }

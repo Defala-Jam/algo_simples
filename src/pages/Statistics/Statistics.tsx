@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import Sidebar from "../../components/sidebar/Sidebar"
-import "./statistics.css"
+import "./Statistics.css"
 
 interface TagStats {
   name: string

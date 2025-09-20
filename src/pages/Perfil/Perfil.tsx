@@ -174,51 +174,60 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> 
 
-      <div className="right-sidebar">
-        <div className="stats-banner">
-          <div className="stats-content">
-            <h3>Your Statistics</h3>
-            <div className="user-stat-item">
-              <span className="stat-label">Avg. Response Time</span>
-              <span className="stat-value">{userStats.averageResponseTime}</span>
-            </div>
-            <div className="user-stat-item">
-              <span className="stat-label">Journey Progress</span>
-              <span className="stat-value">
-                {userStats.correctAnswers}/{userStats.totalQuestions}
-              </span>
-            </div>
-            <div className="user-stat-item">
-              <span className="stat-label">Leaderboard Rank</span>
-              <span className="stat-value">#{userStats.leaderboardPosition}</span>
-            </div>
+ 
+
+      <div className="perfil-right-sidebar">
+        {/* Stats Section */}
+        <div className="stats-section">
+          <div className="stat-item">
+            <span className="stat-icon">🔥</span>
+            <span className="stat-value">0</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-icon">💎</span>
+            <span className="stat-value">17</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-icon">⚡</span>
+            <span className="stat-value">5</span>
           </div>
         </div>
 
-        <div className="actions-section">
-          <h3>Actions</h3>
-          <div className="action-links">
-            <button className="action-link">✏️ Edit profile</button>
-            <button className="action-link">👥 Public profile</button>
-            <button className="action-link">💰 Refer a friend</button>
-            <button className="action-link">⚙️ Preferences</button>
-          </div>
+        {/* Quick Actions */}
+        <div className="quick-actions">
+          <h3>Quick Actions</h3>
+          <button className="action-btn">Practice Weak Areas</button>
+          <button className="action-btn">Review Mistakes</button>
+          <button className="action-btn">Take Quiz</button>
         </div>
 
-        <div className="footer-links">
-          <div className="footer-row">
-            <a href="#">About</a>
-            <a href="#">Certifications</a>
-            <a href="#">Affiliate</a>
-            <a href="#">Businesses</a>
-            <a href="#">Blog</a>
-          </div>
-          <div className="footer-row">
-            <a href="#">Contact</a>
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
+        {/* Recent Activity */}
+        <div className="recent-activity">
+          <h3>Recent Activity</h3>
+          <div className="activity-list">
+            <div className="activity-item">
+              <div className="activity-icon">✅</div>
+              <div className="activity-text">
+                <div>Bubble Sort Quiz</div>
+                <div className="activity-time">2 hours ago</div>
+              </div>
+            </div>
+            <div className="activity-item">
+              <div className="activity-icon">📚</div>
+              <div className="activity-text">
+                <div>Merge Sort Lesson</div>
+                <div className="activity-time">1 day ago</div>
+              </div>
+            </div>
+            <div className="activity-item">
+              <div className="activity-icon">🎯</div>
+              <div className="activity-text">
+                <div>Quick Sort Challenge</div>
+                <div className="activity-time">3 days ago</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
