@@ -3,6 +3,7 @@ import Path_player from './pages/Path_player/Path_player.tsx';
 import Leaderboard from './pages/Leaderboard/Leaderboard.tsx';
 import Perfil from './pages/Perfil/Perfil.tsx';
 import Statistics from './pages/Statistics/Statistics.tsx';
+import Store from './pages/Store/Store.tsx';  // <-- importa a página Store
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Path_player />} />
         <Route path='/profile' element={<Perfil/>} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/store" element={<Store />} /> 
         <Route path="/more" element={<Statistics />} />
         
       </Routes>
