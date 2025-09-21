@@ -66,15 +66,15 @@
 }
 
 .journey-card:hover {
-  border-color: #10b981; /* verde */
+  border-color: #1c986f; /* verde */
   transform: translateY(-2px);
 }
 
 .journey-card.active {
-  border-color: #10b981;
-  background: #10b981;
+  border-color: #1c986f;
+  background: #1e293b;
   color: #ffffff;
-}
+} 
 
 .journey-info h3 {
   font-size: 1.2rem;
