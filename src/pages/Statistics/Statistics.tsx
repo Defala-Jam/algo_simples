@@ -21,7 +21,7 @@ interface Journey {
 }
 
 const Statistics: React.FC = () => {
-  const [activeNavItem, setActiveNavItem] = useState("statistics")
+  const [activeNavItem, setActiveNavItem] = useState("more")
   const [selectedJourney, setSelectedJourney] = useState("algorithms")
 
   const navigator = (item: string) => {
