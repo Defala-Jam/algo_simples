@@ -12,7 +12,7 @@ const Leaderboard: React.FC = () => {
     setActiveNavItem(item)
   }
 
-  // Exemplo de ranking estático
+  // Ranking estático
   const ranking = [
     { id: 1, name: "Alice", xp: 120, avatar: "👩" },
     { id: 2, name: "Bruno", xp: 95, avatar: "🧑" },
@@ -22,11 +22,12 @@ const Leaderboard: React.FC = () => {
   ]
 
   return (
-    <div className="app-container">
+    <div className="leaderboard-layout">
+      {/* Sidebar esquerda */}
       <Sidebar activeItem={activeNavItem} onNavigate={navigator} />
 
       {/* Conteúdo principal */}
-      <div className="main-content">
+      <div className="leaderboard-main">
         <div className="leaderboard-header">
           <h2>Leaderboard</h2>
           <p>Veja sua posição no ranking semanal!</p>
@@ -47,17 +48,65 @@ const Leaderboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Sidebar direita */}
+      {/* Sidebar direita estilo path_player */}
       <div className="right-sidebar">
-        {/* Progresso da Semana */}
+        {/* Stats */}
+        <div className="stats">
+          <div className="stat-item green">
+            <span className="stat-icon">🔥</span>
+            <span className="stat-number">0</span>
+          </div>
+          <div className="stat-item orange">
+            <span className="stat-icon">💎</span>
+            <span className="stat-number">17</span>
+          </div>
+          <div className="stat-item purple">
+            <span className="stat-icon">⚡</span>
+            <span className="stat-number">5</span>
+          </div>
+        </div>
+
+        {/* Quick Actions */}
         <div className="widget">
           <div className="widget-header">
-            <h3>Progresso da Semana</h3>
+            <h3>Quick Actions</h3>
           </div>
           <div className="widget-content">
-            <p>📘 Lições: 3/7</p>
-            <p>⚡ Desafios: 1/3</p>
-            <p>🔥 Dias Seguidos: 4</p>
+            <button className="action-btn">Practice Weak Areas</button>
+            <button className="action-btn">Review Mistakes</button>
+            <button className="action-btn">Take Quiz</button>
+          </div>
+        </div>
+
+        {/* Recent Activity */}
+        <div className="widget">
+          <div className="widget-header">
+            <h3>Recent Activity</h3>
+          </div>
+          <div className="widget-content">
+            <div className="activity-list">
+              <div className="activity-item">
+                <div className="activity-icon">✅</div>
+                <div className="activity-text">
+                  <div>Bubble Sort Quiz</div>
+                  <div className="activity-time">2 hours ago</div>
+                </div>
+              </div>
+              <div className="activity-item">
+                <div className="activity-icon">📚</div>
+                <div className="activity-text">
+                  <div>Merge Sort Lesson</div>
+                  <div className="activity-time">1 day ago</div>
+                </div>
+              </div>
+              <div className="activity-item">
+                <div className="activity-icon">🎯</div>
+                <div className="activity-text">
+                  <div>Quick Sort Challenge</div>
+                  <div className="activity-time">3 days ago</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
