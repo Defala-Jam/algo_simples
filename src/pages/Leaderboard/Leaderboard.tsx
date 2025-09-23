@@ -48,7 +48,7 @@ const Leaderboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Sidebar direita estilo path_player */}
+      {/* Right Sidebar */}
       <div className="right-sidebar">
         {/* Stats */}
         <div className="stats">
@@ -58,7 +58,7 @@ const Leaderboard: React.FC = () => {
           </div>
           <div className="stat-item orange">
             <span className="stat-icon">💎</span>
-            <span className="stat-number">17</span>
+            <span className="stat-number">9</span>
           </div>
           <div className="stat-item purple">
             <span className="stat-icon">⚡</span>
@@ -66,46 +66,40 @@ const Leaderboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Quick Actions */}
+        {/* Leaderboard */}
         <div className="widget">
           <div className="widget-header">
-            <h3>Quick Actions</h3>
+            <h3>Leaderboard</h3>
+            <button className="view-button">View</button>
           </div>
           <div className="widget-content">
-            <button className="action-btn">Practice Weak Areas</button>
-            <button className="action-btn">Review Mistakes</button>
-            <button className="action-btn">Take Quiz</button>
+            <div className="leaderboard-message">
+              <span className="lock-icon">🔒</span>
+              <p>Start learning and earning XP to join this week's leaderboard!</p>
+            </div>
           </div>
         </div>
 
-        {/* Recent Activity */}
+        {/* Daily Goals */}
         <div className="widget">
           <div className="widget-header">
-            <h3>Recent Activity</h3>
+            <h3>Daily Goals</h3>
+            <button className="view-button">View</button>
           </div>
           <div className="widget-content">
-            <div className="activity-list">
-              <div className="activity-item">
-                <div className="activity-icon">✅</div>
-                <div className="activity-text">
-                  <div>Bubble Sort Quiz</div>
-                  <div className="activity-time">2 hours ago</div>
-                </div>
+            <div className="goal-item">
+              <div className="goal-text">
+                <span>Complete 5 lessons</span>
+                <span className="goal-progress">0/5</span>
               </div>
-              <div className="activity-item">
-                <div className="activity-icon">📚</div>
-                <div className="activity-text">
-                  <div>Merge Sort Lesson</div>
-                  <div className="activity-time">1 day ago</div>
-                </div>
+              <span className="trophy-icon">🏆</span>
+            </div>
+            <div className="goal-item">
+              <div className="goal-text">
+                <span>Solve 3 challenges on first try</span>
+                <span className="goal-progress">0/3</span>
               </div>
-              <div className="activity-item">
-                <div className="activity-icon">🎯</div>
-                <div className="activity-text">
-                  <div>Quick Sort Challenge</div>
-                  <div className="activity-time">3 days ago</div>
-                </div>
-              </div>
+              <span className="trophy-icon">🏆</span>
             </div>
           </div>
         </div>
