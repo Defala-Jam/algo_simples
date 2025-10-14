@@ -1,15 +1,45 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
+
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import storeRoutes from "./routes/storeRoutes.js";
 import "./db.js";
+import { fileURLToPath } from "url";
+import fs from "fs";
+import path from "path";
+import dotenv from "dotenv";
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const envPath = path.join(__dirname, ".env");
+console.log("📁 Procurando .env em:", envPath);
+
+if (fs.existsSync(envPath)) {
+  const result = dotenv.config({ path: envPath });
+  console.log("📦 Variáveis carregadas:", process.env);
+  if (result.error) {
+    console.error("❌ Erro ao carregar .env:", result.error);
+  }
+} else {
+  console.error("🚨 Arquivo .env não encontrado!");
+}
+
+dotenv.config({ path: path.join(__dirname, ".env") });
+console.log("📁 Caminho .env:", path.join(__dirname, ".env"));
+console.log("🧩 Variáveis de ambiente disponíveis:", process.env);
+console.log("🔐 JWT_SECRET carregado:", process.env.JWT_SECRET);
+
+
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // ou 3000 se estiver usando React sem Vite
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Rotas principais

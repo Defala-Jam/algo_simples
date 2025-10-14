@@ -26,20 +26,29 @@ export const loginUser = async (req, res) => {
     const { email, password } = req.body;
     const db = await dbPromise;
 
+    console.log("🟢 Tentando login com:", email);
     const user = await db.get("SELECT * FROM users WHERE email = ?", [email]);
+    console.log("📦 Usuário encontrado:", user);
+
     if (!user) return res.status(404).json({ message: "Usuário não encontrado" });
 
     const valid = await bcrypt.compare(password, user.password);
-    if (!valid) return res.status(401).json({ message: "Senha incorreta" });
+    console.log("🔑 Senha válida?", valid);
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "2h" });
+    if (!valid) return res.status(401).json({ message: "Senha incorreta" });
+    
+    const JWT_SECRET = "meusegredosuperseguro"; // defina diretamente no código
+    const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "2h" });
 
     res.json({
       message: "Login bem-sucedido",
       token,
       user: { id: user.id, name: user.name, email: user.email, diamonds: user.diamonds, xp: user.xp },
     });
+    
   } catch (err) {
+    console.error("❌ Erro no login:", err);
     res.status(500).json({ error: err.message });
   }
 };
+

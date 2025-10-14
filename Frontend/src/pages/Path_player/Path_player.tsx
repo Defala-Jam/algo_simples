@@ -17,6 +17,75 @@ const Path_player: React.FC = () => {
   const [showLogin, setShowLogin] = useState(false)
   const [showRegister, setShowRegister] = useState(false)
 
+  // Campos e mensagens para login
+  const [loginEmail, setLoginEmail] = useState("")
+  const [loginPassword, setLoginPassword] = useState("")
+  const [loginError, setLoginError] = useState("")
+
+  // Campos e mensagens para cadastro
+  const [registerName, setRegisterName] = useState("")
+  const [registerEmail, setRegisterEmail] = useState("")
+  const [registerPassword, setRegisterPassword] = useState("")
+  const [registerError, setRegisterError] = useState("")
+
+  // Usuário logado
+  const user = JSON.parse(localStorage.getItem("user") || "null")
+
+  // Função de login
+  const handleLogin = async () => {
+    setLoginError("")
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
+      })
+
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.message || "Erro no login")
+
+      localStorage.setItem("token", data.token)
+      localStorage.setItem("user", JSON.stringify(data.user))
+
+      alert("✅ Login realizado com sucesso!")
+      setShowLogin(false)
+      window.location.reload()
+    } catch (err: any) {
+      setLoginError(err.message)
+    }
+  }
+
+  // Função de cadastro
+  const handleRegister = async () => {
+    setRegisterError("")
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: registerName,
+          email: registerEmail,
+          password: registerPassword,
+        }),
+      })
+
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.message || "Erro no cadastro")
+
+      alert("✅ Cadastro realizado com sucesso!")
+      setShowRegister(false)
+      setShowLogin(true)
+    } catch (err: any) {
+      setRegisterError(err.message)
+    }
+  }
+
+  // Logout
+  const handleLogout = () => {
+    localStorage.clear()
+    window.location.reload()
+  }
+
   const navigator = (item: string) => {
     setActiveNavItem(item)
     console.log(`[v0] Navegando para: ${item}`)
@@ -62,7 +131,7 @@ const Path_player: React.FC = () => {
   const lessonData = {
     title: "Fundamentos dos Algoritmos de Ordenação",
     content:
-      "Os algoritmos de ordenação são métodos utilizados para organizar dados em uma determinada ordem — geralmente crescente ou decrescente. Eles são essenciais para otimizar a busca e o processamento de informações.",
+      "Os algoritmos de ordenação são métodos utilizados para organizar dados em uma determinada ordem — geralmente crescente ou decrescente.",
     explanation:
       "O Bubble Sort troca repetidamente elementos adjacentes se estiverem na ordem errada. O Merge Sort divide a lista em partes e as une novamente em ordem. O Quick Sort escolhe um pivô e particiona os elementos ao redor dele.",
     question: "Qual das afirmações abaixo é VERDADEIRA sobre os algoritmos de ordenação?",
@@ -75,7 +144,6 @@ const Path_player: React.FC = () => {
     correctAnswer: 1,
   }
 
-  // Se estiver no modo de lição
   if (isLessonActive) {
     return (
       <Lesson
@@ -92,7 +160,6 @@ const Path_player: React.FC = () => {
 
       {/* Conteúdo Principal */}
       <div className="main-content">
-        {/* Cabeçalho */}
         <div className="content-header">
           <button className="back-button">←</button>
           <div className="header-info">
@@ -101,7 +168,6 @@ const Path_player: React.FC = () => {
           </div>
         </div>
 
-        {/* Caminho de Aprendizado */}
         <div className="learning-path">
           <div className="path-title">Fundamentos dos Algoritmos de Ordenação</div>
           <div className="path-nodes">
@@ -136,11 +202,11 @@ const Path_player: React.FC = () => {
           </div>
           <div className="stat-item orange">
             <span className="stat-icon">💎</span>
-            <span className="stat-number">17</span>
+            <span className="stat-number">{user?.diamonds ?? 17}</span>
           </div>
           <div className="stat-item purple">
             <span className="stat-icon">⚡</span>
-            <span className="stat-number">5</span>
+            <span className="stat-number">{user?.xp ?? 5}</span>
           </div>
         </div>
 
@@ -177,24 +243,45 @@ const Path_player: React.FC = () => {
                   <div className="activity-time">há 1 dia</div>
                 </div>
               </div>
+              <div className="activity-item">
+                <div className="activity-icon">🎯</div>
+                <div className="activity-text">
+                  <div>Desafio de Quick Sort</div>
+                  <div className="activity-time">há 3 dias</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Widget de Login/Cadastro */}
-        <div className="widget login-widget">
-          <div className="widget-header">
-            <h3>Crie seu perfil e salve seu progresso!</h3>
+        {/* Widget de Login/Cadastro OU Perfil */}
+        {!user ? (
+          <div className="widget login-widget">
+            <div className="widget-header">
+              <h3>Crie seu perfil e salve seu progresso!</h3>
+            </div>
+            <div className="widget-content">
+              <button className="login-btn create-btn" onClick={() => setShowRegister(true)}>
+                Criar Conta
+              </button>
+              <button className="login-btn login-btn-alt" onClick={() => setShowLogin(true)}>
+                Entrar
+              </button>
+            </div>
           </div>
-          <div className="widget-content">
-            <button className="login-btn create-btn" onClick={() => setShowRegister(true)}>
-              Criar Conta
-            </button>
-            <button className="login-btn login-btn-alt" onClick={() => setShowLogin(true)}>
-              Entrar
-            </button>
+        ) : (
+          <div className="widget profile-widget">
+            <div className="widget-header">
+              <h3>Bem-vindo, {user.name} 👋</h3>
+            </div>
+            <div className="widget-content">
+              <p>{user.email}</p>
+              <button className="login-btn login-btn-alt" onClick={handleLogout}>
+                Sair
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* POP-UP DE LOGIN */}
@@ -203,9 +290,20 @@ const Path_player: React.FC = () => {
           <div className="modal">
             <button className="close-btn" onClick={() => setShowLogin(false)}>✕</button>
             <h2>Entrar</h2>
-            <input type="email" placeholder="E-mail" />
-            <input type="password" placeholder="Senha" />
-            <button className="confirm-btn">Entrar</button>
+            <input
+              type="email"
+              placeholder="E-mail"
+              value={loginEmail}
+              onChange={(e) => setLoginEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Senha"
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
+            />
+            {loginError && <p style={{ color: "red" }}>{loginError}</p>}
+            <button className="confirm-btn" onClick={handleLogin}>Entrar</button>
             <p className="modal-text">
               Não tem conta?{" "}
               <span onClick={() => { setShowLogin(false); setShowRegister(true); }}>Crie uma!</span>
@@ -220,10 +318,26 @@ const Path_player: React.FC = () => {
           <div className="modal">
             <button className="close-btn" onClick={() => setShowRegister(false)}>✕</button>
             <h2>Criar Conta</h2>
-            <input type="text" placeholder="Nome" />
-            <input type="email" placeholder="E-mail" />
-            <input type="password" placeholder="Senha" />
-            <button className="confirm-btn">Cadastrar</button>
+            <input
+              type="text"
+              placeholder="Nome"
+              value={registerName}
+              onChange={(e) => setRegisterName(e.target.value)}
+            />
+            <input
+              type="email"
+              placeholder="E-mail"
+              value={registerEmail}
+              onChange={(e) => setRegisterEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Senha"
+              value={registerPassword}
+              onChange={(e) => setRegisterPassword(e.target.value)}
+            />
+            {registerError && <p style={{ color: "red" }}>{registerError}</p>}
+            <button className="confirm-btn" onClick={handleRegister}>Cadastrar</button>
             <p className="modal-text">
               Já tem uma conta?{" "}
               <span onClick={() => { setShowRegister(false); setShowLogin(true); }}>Entrar</span>
