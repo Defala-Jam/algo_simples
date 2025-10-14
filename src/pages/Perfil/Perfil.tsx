@@ -14,28 +14,31 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
   const [selectedAvatar, setSelectedAvatar] = useState(0)
   const [selectedBackground, setSelectedBackground] = useState(0)
 
+  // Avatares disponíveis
   const avatarPresets = [
-    { id: 0, name: "Default", emoji: "👤" },
-    { id: 1, name: "Coder", emoji: "👨‍💻" },
-    { id: 2, name: "Student", emoji: "🎓" },
+    { id: 0, name: "Padrão", emoji: "👤" },
+    { id: 1, name: "Programador", emoji: "👨‍💻" },
+    { id: 2, name: "Estudante", emoji: "🎓" },
     { id: 3, name: "Ninja", emoji: "🥷" },
-    { id: 4, name: "Robot", emoji: "🤖" },
-    { id: 5, name: "Wizard", emoji: "🧙‍♂️" },
+    { id: 4, name: "Robô", emoji: "🤖" },
+    { id: 5, name: "Mago", emoji: "🧙‍♂️" },
   ]
 
+  // Planos de fundo disponíveis
   const backgroundPresets = [
-    { id: 0, name: "Default", gradient: "linear-gradient(135deg, #1e293b 0%, #334155 100%)" },
-    { id: 1, name: "Ocean", gradient: "linear-gradient(135deg, #0891b2 0%, #0e7490 100%)" },
-    { id: 2, name: "Forest", gradient: "linear-gradient(135deg, #10b981 0%, #059669 100%)" },
-    { id: 3, name: "Sunset", gradient: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" },
-    { id: 4, name: "Purple", gradient: "linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)" },
-    { id: 5, name: "Night", gradient: "linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)" },
+    { id: 0, name: "Padrão", gradient: "linear-gradient(135deg, #1e293b 0%, #334155 100%)" },
+    { id: 1, name: "Oceano", gradient: "linear-gradient(135deg, #0891b2 0%, #0e7490 100%)" },
+    { id: 2, name: "Floresta", gradient: "linear-gradient(135deg, #10b981 0%, #059669 100%)" },
+    { id: 3, name: "Pôr do Sol", gradient: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" },
+    { id: 4, name: "Roxo", gradient: "linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)" },
+    { id: 5, name: "Noite", gradient: "linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)" },
   ]
 
+  // Conquistas (badges)
   const badges = [
-    { id: 1, name: "Basic Profile", description: "Added bio to profile", progress: "0/3", icon: "❓", completed: false },
-    { id: 2, name: "The Start", description: "Solved 3 coding problems", progress: "1/5", icon: "💡", completed: true },
-    { id: 3, name: "Daily Coder", description: "Maintained a 3-day streak", progress: "0/5", icon: "❓", completed: false },
+    { id: 1, name: "Perfil Básico", description: "Adicionou uma bio ao perfil", progress: "0/3", icon: "❓", completed: false },
+    { id: 2, name: "O Começo", description: "Resolveu 3 problemas de programação", progress: "1/5", icon: "💡", completed: true },
+    { id: 3, name: "Codificador Diário", description: "Manteve uma sequência de 3 dias", progress: "0/5", icon: "❓", completed: false },
   ]
 
   const navigator = (item: string) => {
@@ -47,9 +50,9 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
     <div className="perfil-layout">
       <Sidebar activeItem={activeItem} onNavigate={navigator} />
 
-      {/* Conteúdo principal em blocos/widgets */}
+      {/* Conteúdo principal */}
       <div className="perfil-main">
-        {/* Header + avatar */}
+        {/* Cabeçalho e avatar */}
         <div className="widget perfil-header" style={{ background: backgroundPresets[selectedBackground].gradient }}>
           <div className="avatar-silhouette">
             <div className="avatar-display">{avatarPresets[selectedAvatar].emoji}</div>
@@ -60,7 +63,7 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
         {/* Informações do usuário */}
         <div className="widget user-info-section">
           <h1 className="username">defalaplay</h1>
-          <p className="user-subtitle">Add title</p>
+          <p className="user-subtitle">Adicione um título</p>
         </div>
 
         {/* Estatísticas principais */}
@@ -69,28 +72,28 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
             <div className="stat-icon-large">🔥</div>
             <div className="stat-info">
               <div className="stat-number">0</div>
-              <div className="stat-label">Streak</div>
+              <div className="stat-label">Sequência</div>
             </div>
           </div>
           <div className="stat-card">
             <div className="stat-icon-large">⚡</div>
             <div className="stat-info">
               <div className="stat-number">175</div>
-              <div className="stat-label">Total XP</div>
+              <div className="stat-label">XP Total</div>
             </div>
           </div>
           <div className="stat-card">
             <div className="stat-icon-large">🏆</div>
             <div className="stat-info">
-              <div className="stat-number">Starter</div>
-              <div className="stat-label">Current league</div>
+              <div className="stat-number">Iniciante</div>
+              <div className="stat-label">Liga Atual</div>
             </div>
           </div>
         </div>
 
-        {/* Badges */}
+        {/* Conquistas */}
         <div className="widget badges-section">
-          <h2 className="section-title">Badges</h2>
+          <h2 className="section-title">Conquistas</h2>
           <div className="badges-list">
             {badges.map((badge) => (
               <div key={badge.id} className={`badge-item ${badge.completed ? "completed" : ""}`}>
@@ -105,10 +108,10 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Customização */}
+        {/* Personalização */}
         <div className="widget customization-section">
           <div className="customization-group">
-            <h3 className="customization-title">Choose Avatar</h3>
+            <h3 className="customization-title">Escolher Avatar</h3>
             <div className="avatar-presets">
               {avatarPresets.map((avatar) => (
                 <button
@@ -124,7 +127,7 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
           </div>
 
           <div className="customization-group">
-            <h3 className="customization-title">Background Theme</h3>
+            <h3 className="customization-title">Tema de Fundo</h3>
             <div className="background-presets">
               {backgroundPresets.map((bg) => (
                 <button
@@ -142,10 +145,9 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
         </div>
       </div>
 
-
-      {/* Right Sidebar */}
+      {/* Barra lateral direita */}
       <div className="right-sidebar">
-        {/* Stats */}
+        {/* Estatísticas */}
         <div className="stats">
           <div className="stat-item green">
             <span className="stat-icon">🔥</span>
@@ -161,37 +163,37 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Leaderboard */}
+        {/* Ranking */}
         <div className="widget">
           <div className="widget-header">
-            <h3>Leaderboard</h3>
-            <button className="view-button">View</button>
+            <h3>Ranking</h3>
+            <button className="view-button">Ver</button>
           </div>
           <div className="widget-content">
             <div className="leaderboard-message">
               <span className="lock-icon">🔒</span>
-              <p>Start learning and earning XP to join this week's leaderboard!</p>
+              <p>Comece a aprender e ganhe XP para entrar no ranking desta semana!</p>
             </div>
           </div>
         </div>
 
-        {/* Daily Goals */}
+        {/* Metas Diárias */}
         <div className="widget">
           <div className="widget-header">
-            <h3>Daily Goals</h3>
-            <button className="view-button">View</button>
+            <h3>Metas Diárias</h3>
+            <button className="view-button">Ver</button>
           </div>
           <div className="widget-content">
             <div className="goal-item">
               <div className="goal-text">
-                <span>Complete 5 lessons</span>
+                <span>Concluir 5 lições</span>
                 <span className="goal-progress">0/5</span>
               </div>
               <span className="trophy-icon">🏆</span>
             </div>
             <div className="goal-item">
               <div className="goal-text">
-                <span>Solve 3 challenges on first try</span>
+                <span>Resolver 3 desafios na primeira tentativa</span>
                 <span className="goal-progress">0/3</span>
               </div>
               <span className="trophy-icon">🏆</span>

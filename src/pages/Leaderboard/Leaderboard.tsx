@@ -23,13 +23,13 @@ const Leaderboard: React.FC = () => {
 
   return (
     <div className="leaderboard-layout">
-      {/* Sidebar esquerda */}
+      {/* Barra lateral esquerda */}
       <Sidebar activeItem={activeNavItem} onNavigate={navigator} />
 
       {/* Conteúdo principal */}
       <div className="leaderboard-main">
         <div className="leaderboard-header">
-          <h2>Leaderboard</h2>
+          <h2>Ranking de Jogadores</h2>
           <p>Veja sua posição no ranking semanal!</p>
         </div>
 
@@ -48,9 +48,9 @@ const Leaderboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Right Sidebar */}
+      {/* Barra lateral direita */}
       <div className="right-sidebar">
-        {/* Stats */}
+        {/* Estatísticas */}
         <div className="stats">
           <div className="stat-item green">
             <span className="stat-icon">🔥</span>
@@ -66,37 +66,37 @@ const Leaderboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Leaderboard */}
+        {/* Ranking */}
         <div className="widget">
           <div className="widget-header">
-            <h3>Leaderboard</h3>
-            <button className="view-button">View</button>
+            <h3>Ranking</h3>
+            <button className="view-button">Ver</button>
           </div>
           <div className="widget-content">
             <div className="leaderboard-message">
               <span className="lock-icon">🔒</span>
-              <p>Start learning and earning XP to join this week's leaderboard!</p>
+              <p>Comece a aprender e ganhe XP para entrar no ranking desta semana!</p>
             </div>
           </div>
         </div>
 
-        {/* Daily Goals */}
+        {/* Metas Diárias */}
         <div className="widget">
           <div className="widget-header">
-            <h3>Daily Goals</h3>
-            <button className="view-button">View</button>
+            <h3>Metas Diárias</h3>
+            <button className="view-button">Ver</button>
           </div>
           <div className="widget-content">
             <div className="goal-item">
               <div className="goal-text">
-                <span>Complete 5 lessons</span>
+                <span>Concluir 5 lições</span>
                 <span className="goal-progress">0/5</span>
               </div>
               <span className="trophy-icon">🏆</span>
             </div>
             <div className="goal-item">
               <div className="goal-text">
-                <span>Solve 3 challenges on first try</span>
+                <span>Resolver 3 desafios na primeira tentativa</span>
                 <span className="goal-progress">0/3</span>
               </div>
               <span className="trophy-icon">🏆</span>

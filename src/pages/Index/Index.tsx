@@ -9,30 +9,28 @@ const Index: React.FC = () => {
   const [activeAlgorithm, setActiveAlgorithm] = useState<string | null>(null)
   const navigate = useNavigate()
 
-
-  
   const algorithms = [
     {
       name: "Bubble Sort",
-      description: "Simple comparison-based sorting algorithm",
+      description: "Algoritmo de ordenação simples baseado em comparações.",
       complexity: "O(n²)",
       icon: "🫧",
     },
     {
       name: "Merge Sort",
-      description: "Divide-and-conquer sorting algorithm",
+      description: "Algoritmo de ordenação do tipo dividir-para-conquistar.",
       complexity: "O(n log n)",
       icon: "🔀",
     },
     {
       name: "Insertion Sort",
-      description: "Builds sorted array one element at a time",
+      description: "Constrói o array ordenado inserindo um elemento por vez.",
       complexity: "O(n²)",
       icon: "📥",
     },
     {
       name: "Selection Sort",
-      description: "Finds minimum element and places it at beginning",
+      description: "Encontra o menor elemento e o coloca no início da lista.",
       complexity: "O(n²)",
       icon: "🎯",
     },
@@ -40,42 +38,44 @@ const Index: React.FC = () => {
 
   const features = [
     {
-      title: "Interactive Learning",
-      description: "Learn algorithms through hands-on practice and visual demonstrations",
+      title: "Aprendizado Interativo",
+      description: "Aprenda algoritmos de forma prática e visual, com demonstrações dinâmicas.",
       icon: "🎮",
     },
     {
-      title: "Progress Tracking",
-      description: "Monitor your learning journey with detailed statistics and achievements",
+      title: "Acompanhamento de Progresso",
+      description: "Monitore sua jornada de aprendizado com estatísticas e conquistas detalhadas.",
       icon: "📊",
     },
     {
-      title: "Gamified Experience",
-      description: "Earn streaks, gems, and compete on leaderboards while learning",
+      title: "Experiência Gamificada",
+      description: "Ganhe sequências, joias e dispute nos rankings enquanto aprende.",
       icon: "🏆",
     },
     {
-      title: "Personalized Path",
-      description: "Adaptive learning paths tailored to your skill level and pace",
+      title: "Trilha Personalizada",
+      description: "Caminhos de aprendizado adaptados ao seu nível e ritmo de estudo.",
       icon: "🛤️",
     },
   ]
 
   return (
     <div className="index-container">
-      {/* Hero Section */}
+      {/* Seção Principal (Hero) */}
       <section className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">
-            Master <span className="highlight">Sorting Algorithms</span> Like Never Before
+            Domine os <span className="highlight">Algoritmos de Ordenação</span> como nunca antes
           </h1>
           <p className="hero-subtitle">
-            Learn computer science fundamentals through interactive lessons, visual demonstrations, and gamified
-            challenges. Start your coding journey today.
+            Aprenda fundamentos da ciência da computação por meio de lições interativas, demonstrações visuais e desafios
+            gamificados. Comece sua jornada na programação hoje mesmo.
           </p>
           <div className="hero-buttons">
-            <button className="cta-primary" onClick={() => {navigate("/path")}}>Start Learning</button>
-            <button className="cta-secondary">Watch Demo</button>
+            <button className="cta-primary" onClick={() => navigate("/path")}>
+              Começar a Aprender
+            </button>
+            <button className="cta-secondary">Ver Demonstração</button>
           </div>
         </div>
         <div className="hero-visual">
@@ -89,11 +89,11 @@ const Index: React.FC = () => {
         </div>
       </section>
 
-      {/* Algorithms Section */}
+      {/* Seção de Algoritmos */}
       <section className="algorithms-section">
-        <h2 className="section-title">Explore Sorting Algorithms</h2>
+        <h2 className="section-title">Explore os Algoritmos de Ordenação</h2>
         <p className="section-subtitle">
-          Dive deep into the most important sorting algorithms used in computer science
+          Aprofunde-se nos principais algoritmos de ordenação utilizados na ciência da computação.
         </p>
         <div className="algorithms-grid">
           {algorithms.map((algorithm, index) => (
@@ -107,7 +107,7 @@ const Index: React.FC = () => {
               <h3 className="algorithm-name">{algorithm.name}</h3>
               <p className="algorithm-description">{algorithm.description}</p>
               <div className="algorithm-complexity">
-                <span className="complexity-label">Time Complexity:</span>
+                <span className="complexity-label">Complexidade de tempo:</span>
                 <span className="complexity-value">{algorithm.complexity}</span>
               </div>
             </div>
@@ -115,9 +115,9 @@ const Index: React.FC = () => {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Seção de Recursos */}
       <section className="features-section">
-        <h2 className="section-title">Why Choose Our Platform?</h2>
+        <h2 className="section-title">Por que escolher nossa plataforma?</h2>
         <div className="features-grid">
           {features.map((feature, index) => (
             <div key={index} className="feature-card">
@@ -129,36 +129,39 @@ const Index: React.FC = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {/* Estatísticas */}
       <section className="index-stats-section">
         <div className="index-stats-container">
           <div className="index-stat-item">
-            <div className="index-stat-number">10K+</div>
-            <div className="index-stat-label">Students Learning</div>
+            <div className="index-stat-number">10 mil+</div>
+            <div className="index-stat-label">Estudantes Aprendendo</div>
           </div>
           <div className="index-stat-item">
             <div className="index-stat-number">50+</div>
-            <div className="index-stat-label">Interactive Lessons</div>
+            <div className="index-stat-label">Lições Interativas</div>
           </div>
           <div className="index-stat-item">
             <div className="index-stat-number">95%</div>
-            <div className="index-stat-label">Success Rate</div>
+            <div className="index-stat-label">Taxa de Sucesso</div>
           </div>
           <div className="index-stat-item">
             <div className="index-stat-number">4.9★</div>
-            <div className="index-stat-label">Student Rating</div>
+            <div className="index-stat-label">Avaliação dos Estudantes</div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Seção Final (Chamada para Ação) */}
       <section className="final-cta-section">
         <div className="cta-content">
-          <h2 className="cta-title">Ready to Start Your Algorithm Journey?</h2>
+          <h2 className="cta-title">Pronto para começar sua jornada nos algoritmos?</h2>
           <p className="cta-description">
-            Join thousands of students who have mastered sorting algorithms through our interactive platform
+            Junte-se a milhares de estudantes que dominaram algoritmos de ordenação por meio da nossa plataforma
+            interativa.
           </p>
-          <button className="cta-primary large" onClick={() => {navigate("/path")}}>Get Started for Free</button>
+          <button className="cta-primary large" onClick={() => navigate("/path")}>
+            Comece Gratuitamente
+          </button>
         </div>
       </section>
     </div>

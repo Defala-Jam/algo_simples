@@ -104,3 +104,170 @@
   margin: -2px 0;
   z-index: 1;
 }
+/* ===========================
+   WIDGET DE LOGIN / CADASTRO
+   =========================== */
+.login-widget {
+  background: #2b3444;
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.login-widget .widget-header h3 {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.login-widget .widget-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Botão verde: Criar Conta */
+.login-btn.create-btn {
+  background-color: #22c55e;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  width: 100%;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.2s;
+}
+
+.login-btn.create-btn:hover {
+  background-color: #4fa202;
+}
+
+/* Botão azul: Entrar */
+.login-btn.login-btn-alt {
+  background-color: #1cb0f6;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  width: 100%;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.2s;
+}
+
+.login-btn.login-btn-alt:hover {
+  background-color: #1491d2;
+}
+
+/* ===========================
+   MODAIS DE LOGIN / CADASTRO
+   =========================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(17, 24, 39, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal {
+  background: #2b3444;
+  border-radius: 20px;
+  padding: 32px 24px;
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.3s ease-out;
+}
+
+.modal h2 {
+  color: #fff;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.modal input {
+  width: 100%;
+  background: #1f2937;
+  border: none;
+  color: #fff;
+  font-size: 15px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  outline: none;
+}
+
+.confirm-btn {
+  background: #58cc02;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 12px 20px;
+  width: 100%;
+  border-radius: 12px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 8px;
+}
+
+.confirm-btn:hover {
+  background: #4fa202;
+}
+
+.modal-text {
+  color: #d1d5db;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.modal-text span {
+  color: #1cb0f6;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* ANIMAÇÕES */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

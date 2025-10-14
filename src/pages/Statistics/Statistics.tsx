@@ -26,21 +26,32 @@ const Statistics: React.FC = () => {
 
   const navigator = (item: string) => {
     setActiveNavItem(item)
-    console.log(`[v0] Navigating to: ${item}`)
-    // Add your navigation logic here (e.g., routing, content switching)
+    console.log(`[v0] Navegando para: ${item}`)
   }
 
+  // Trilhas de aprendizado disponíveis
   const journeys: Journey[] = [
     {
       id: "algorithms",
-      name: "Sorting Algorithms",
+      name: "Algoritmos de Ordenação",
       progress: 75,
-      description: "Master fundamental sorting techniques",
+      description: "Domine as técnicas fundamentais de ordenação.",
     },
-    { id: "datastructures", name: "Data Structures", progress: 45, description: "Learn essential data organization" },
-    { id: "advanced", name: "Advanced Concepts", progress: 20, description: "Complex algorithmic patterns" },
+    {
+      id: "datastructures",
+      name: "Estruturas de Dados",
+      progress: 45,
+      description: "Aprenda a organizar e manipular dados de forma eficiente.",
+    },
+    {
+      id: "advanced",
+      name: "Conceitos Avançados",
+      progress: 20,
+      description: "Aprofunde-se em padrões algorítmicos complexos.",
+    },
   ]
 
+  // Estatísticas de desempenho por tópico
   const tagStats: TagStats[] = [
     { name: "Bubble Sort", averageTime: 12.5, successRate: 85, totalQuestions: 24, color: "#4f46e5" },
     { name: "Merge Sort", averageTime: 18.2, successRate: 72, totalQuestions: 18, color: "#3b82f6" },
@@ -57,13 +68,13 @@ const Statistics: React.FC = () => {
 
       <div className="statistics-main">
         <div className="statistics-header">
-          <h1>Learning Statistics</h1>
-          <p>Track your progress and performance across different topics</p>
+          <h1>Estatísticas de Aprendizado</h1>
+          <p>Acompanhe seu progresso e desempenho em diferentes tópicos.</p>
         </div>
 
-        {/* Journey Selection */}
+        {/* Seção de seleção de trilha */}
         <div className="journey-section">
-          <h2>Select Journey</h2>
+          <h2>Selecionar Trilha</h2>
           <div className="journey-cards">
             {journeys.map((journey) => (
               <div
@@ -86,32 +97,32 @@ const Statistics: React.FC = () => {
           </div>
         </div>
 
-        {/* Current Journey Overview */}
+        {/* Visão geral da trilha atual */}
         <div className="journey-overview">
-          <h2>Current Journey: {currentJourney.name}</h2>
+          <h2>Trilha Atual: {currentJourney.name}</h2>
           <div className="overview-stats">
             <div className="overview-card">
               <div className="overview-value">75%</div>
-              <div className="overview-label">Overall Progress</div>
+              <div className="overview-label">Progresso Geral</div>
             </div>
             <div className="overview-card">
               <div className="overview-value">110</div>
-              <div className="overview-label">Total Questions</div>
+              <div className="overview-label">Total de Questões</div>
             </div>
             <div className="overview-card">
               <div className="overview-value">15.2s</div>
-              <div className="overview-label">Avg Response Time</div>
+              <div className="overview-label">Tempo Médio de Resposta</div>
             </div>
             <div className="overview-card">
               <div className="overview-value">78%</div>
-              <div className="overview-label">Success Rate</div>
+              <div className="overview-label">Taxa de Sucesso</div>
             </div>
           </div>
         </div>
 
-        {/* Tag Statistics */}
+        {/* Estatísticas por tópico */}
         <div className="tags-section">
-          <h2>Performance by Topic</h2>
+          <h2>Desempenho por Tópico</h2>
           <div className="tags-grid">
             {tagStats.map((tag, index) => (
               <div key={index} className="tag-card">
@@ -122,15 +133,15 @@ const Statistics: React.FC = () => {
                 <div className="tag-stats">
                   <div className="stat-item">
                     <div className="stat-value">{tag.averageTime}s</div>
-                    <div className="stat-label">Avg Time</div>
+                    <div className="stat-label">Tempo Médio</div>
                   </div>
                   <div className="stat-item">
                     <div className="stat-value">{tag.successRate}%</div>
-                    <div className="stat-label">Success Rate</div>
+                    <div className="stat-label">Taxa de Sucesso</div>
                   </div>
                   <div className="stat-item">
                     <div className="stat-value">{tag.totalQuestions}</div>
-                    <div className="stat-label">Questions</div>
+                    <div className="stat-label">Questões</div>
                   </div>
                 </div>
                 <div className="tag-progress">
@@ -150,10 +161,9 @@ const Statistics: React.FC = () => {
         </div>
       </div>
 
-      
-      {/* Right Sidebar */}
+      {/* Barra lateral direita */}
       <div className="right-sidebar">
-        {/* Stats */}
+        {/* Estatísticas rápidas */}
         <div className="stats">
           <div className="stat-item green">
             <span className="stat-icon">🔥</span>
@@ -169,37 +179,37 @@ const Statistics: React.FC = () => {
           </div>
         </div>
 
-        {/* Leaderboard */}
+        {/* Ranking */}
         <div className="widget">
           <div className="widget-header">
-            <h3>Leaderboard</h3>
-            <button className="view-button">View</button>
+            <h3>Ranking</h3>
+            <button className="view-button">Ver</button>
           </div>
           <div className="widget-content">
             <div className="leaderboard-message">
               <span className="lock-icon">🔒</span>
-              <p>Start learning and earning XP to join this week's leaderboard!</p>
+              <p>Comece a aprender e ganhe XP para entrar no ranking desta semana!</p>
             </div>
           </div>
         </div>
 
-        {/* Daily Goals */}
+        {/* Metas Diárias */}
         <div className="widget">
           <div className="widget-header">
-            <h3>Daily Goals</h3>
-            <button className="view-button">View</button>
+            <h3>Metas Diárias</h3>
+            <button className="view-button">Ver</button>
           </div>
           <div className="widget-content">
             <div className="goal-item">
               <div className="goal-text">
-                <span>Complete 5 lessons</span>
+                <span>Concluir 5 lições</span>
                 <span className="goal-progress">0/5</span>
               </div>
               <span className="trophy-icon">🏆</span>
             </div>
             <div className="goal-item">
               <div className="goal-text">
-                <span>Solve 3 challenges on first try</span>
+                <span>Resolver 3 desafios na primeira tentativa</span>
                 <span className="goal-progress">0/3</span>
               </div>
               <span className="trophy-icon">🏆</span>
