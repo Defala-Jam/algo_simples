@@ -214,8 +214,8 @@
   outline: none;
 }
 
-.confirm-btn {
-  background: #58cc02;
+.confirm-btn-jorney {
+  background: #22c55e;
   color: white;
   font-weight: bold;
   border: none;
@@ -228,7 +228,7 @@
   margin-top: 8px;
 }
 
-.confirm-btn:hover {
+.confirm-btn-jorney:hover {
   background: #4fa202;
 }
 

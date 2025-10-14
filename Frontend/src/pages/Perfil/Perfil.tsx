@@ -1,7 +1,8 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { jwtDecode } from "jwt-decode"
 import Sidebar from "../../components/sidebar/Sidebar"
 import "./Perfil.css"
 
@@ -9,10 +10,43 @@ interface PerfilProps {
   onNavigate?: (section: string) => void
 }
 
+interface DecodedToken {
+  id: number
+  email: string
+  exp: number
+}
+
 const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
   const [activeItem, setActiveItem] = useState("profile")
   const [selectedAvatar, setSelectedAvatar] = useState(0)
   const [selectedBackground, setSelectedBackground] = useState(0)
+  const [userData, setUserData] = useState<any>(null)
+
+  // Estado do pop-up de logout
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
+
+  // 🔹 Ao carregar a página, busca dados do usuário logado
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (!token) return
+
+    try {
+      const decoded: DecodedToken = jwtDecode(token)
+      fetch(`http://localhost:5000/api/users/${decoded.id}`)
+        .then((res) => res.json())
+        .then((data) => setUserData(data))
+        .catch((err) => console.error("Erro ao carregar usuário:", err))
+    } catch (error) {
+      console.error("Token inválido:", error)
+    }
+  }, [])
+
+  // 🔹 Função de logout
+  const handleLogout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    window.location.href = "/path" // redireciona para página principal
+  }
 
   // Avatares disponíveis
   const avatarPresets = [
@@ -53,7 +87,10 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
       {/* Conteúdo principal */}
       <div className="perfil-main">
         {/* Cabeçalho e avatar */}
-        <div className="widget perfil-header" style={{ background: backgroundPresets[selectedBackground].gradient }}>
+        <div
+          className="widget perfil-header"
+          style={{ background: backgroundPresets[selectedBackground].gradient }}
+        >
           <div className="avatar-silhouette">
             <div className="avatar-display">{avatarPresets[selectedAvatar].emoji}</div>
           </div>
@@ -62,8 +99,8 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
 
         {/* Informações do usuário */}
         <div className="widget user-info-section">
-          <h1 className="username">defalaplay</h1>
-          <p className="user-subtitle">Adicione um título</p>
+          <h1 className="username">{userData ? userData.name : "Carregando..."}</h1>
+          <p className="user-subtitle">{userData ? userData.email : ""}</p>
         </div>
 
         {/* Estatísticas principais */}
@@ -78,15 +115,15 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
           <div className="stat-card">
             <div className="stat-icon-large">⚡</div>
             <div className="stat-info">
-              <div className="stat-number">175</div>
+              <div className="stat-number">{userData ? userData.xp : 0}</div>
               <div className="stat-label">XP Total</div>
             </div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon-large">🏆</div>
+            <div className="stat-icon-large">💎</div>
             <div className="stat-info">
-              <div className="stat-number">Iniciante</div>
-              <div className="stat-label">Liga Atual</div>
+              <div className="stat-number">{userData ? userData.diamonds : 0}</div>
+              <div className="stat-label">Diamantes</div>
             </div>
           </div>
         </div>
@@ -96,7 +133,10 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
           <h2 className="section-title">Conquistas</h2>
           <div className="badges-list">
             {badges.map((badge) => (
-              <div key={badge.id} className={`badge-item ${badge.completed ? "completed" : ""}`}>
+              <div
+                key={badge.id}
+                className={`badge-item ${badge.completed ? "completed" : ""}`}
+              >
                 <div className="badge-icon">{badge.icon}</div>
                 <div className="badge-info">
                   <h3 className="badge-name">{badge.name}</h3>
@@ -147,7 +187,7 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
 
       {/* Barra lateral direita */}
       <div className="right-sidebar">
-        {/* Estatísticas */}
+        {/* Estatísticas rápidas */}
         <div className="stats">
           <div className="stat-item green">
             <span className="stat-icon">🔥</span>
@@ -155,11 +195,11 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
           </div>
           <div className="stat-item orange">
             <span className="stat-icon">💎</span>
-            <span className="stat-number">9</span>
+            <span className="stat-number">{userData ? userData.diamonds : 0}</span>
           </div>
           <div className="stat-item purple">
             <span className="stat-icon">⚡</span>
-            <span className="stat-number">5</span>
+            <span className="stat-number">{userData ? userData.xp : 0}</span>
           </div>
         </div>
 
@@ -200,7 +240,36 @@ const Perfil: React.FC<PerfilProps> = ({ onNavigate }) => {
             </div>
           </div>
         </div>
+
+        {/* 🧩 Novo Widget de Logout */}
+        <div className="widget logout-widget">
+          <div className="widget-header">
+            <h3>Encerrar Sessão</h3>
+          </div>
+          <div className="widget-content">
+            <button className="logout-btn" onClick={() => setShowLogoutConfirm(true)}>
+              Sair da Conta
+            </button>
+          </div>
+        </div>
       </div>
+
+      {/* Pop-up de Confirmação de Logout */}
+      {showLogoutConfirm && (
+        <div className="modal-overlay">
+          <div className="modal logout-modal">
+            <h2>Deseja realmente sair?</h2>
+            <div className="modal-actions">
+              <button className="confirm-btn" onClick={handleLogout}>
+                Sim, sair
+              </button>
+              <button className="cancel-btn" onClick={() => setShowLogoutConfirm(false)}>
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

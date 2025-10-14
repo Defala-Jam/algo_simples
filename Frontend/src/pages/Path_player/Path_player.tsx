@@ -80,12 +80,6 @@ const Path_player: React.FC = () => {
     }
   }
 
-  // Logout
-  const handleLogout = () => {
-    localStorage.clear()
-    window.location.reload()
-  }
-
   const navigator = (item: string) => {
     setActiveNavItem(item)
     console.log(`[v0] Navegando para: ${item}`)
@@ -255,7 +249,8 @@ const Path_player: React.FC = () => {
         </div>
 
         {/* Widget de Login/Cadastro OU Perfil */}
-        {!user ? (
+        {/* Login/Cadastro */}
+        {!user && (
           <div className="widget login-widget">
             <div className="widget-header">
               <h3>Crie seu perfil e salve seu progresso!</h3>
@@ -269,19 +264,8 @@ const Path_player: React.FC = () => {
               </button>
             </div>
           </div>
-        ) : (
-          <div className="widget profile-widget">
-            <div className="widget-header">
-              <h3>Bem-vindo, {user.name} 👋</h3>
-            </div>
-            <div className="widget-content">
-              <p>{user.email}</p>
-              <button className="login-btn login-btn-alt" onClick={handleLogout}>
-                Sair
-              </button>
-            </div>
-          </div>
         )}
+
       </div>
 
       {/* POP-UP DE LOGIN */}
@@ -303,7 +287,7 @@ const Path_player: React.FC = () => {
               onChange={(e) => setLoginPassword(e.target.value)}
             />
             {loginError && <p style={{ color: "red" }}>{loginError}</p>}
-            <button className="confirm-btn" onClick={handleLogin}>Entrar</button>
+            <button className="confirm-btn-jorney" onClick={handleLogin}>Entrar</button>
             <p className="modal-text">
               Não tem conta?{" "}
               <span onClick={() => { setShowLogin(false); setShowRegister(true); }}>Crie uma!</span>
@@ -337,7 +321,7 @@ const Path_player: React.FC = () => {
               onChange={(e) => setRegisterPassword(e.target.value)}
             />
             {registerError && <p style={{ color: "red" }}>{registerError}</p>}
-            <button className="confirm-btn" onClick={handleRegister}>Cadastrar</button>
+            <button className="confirm-btn-jorney" onClick={handleRegister}>Cadastrar</button>
             <p className="modal-text">
               Já tem uma conta?{" "}
               <span onClick={() => { setShowRegister(false); setShowLogin(true); }}>Entrar</span>
