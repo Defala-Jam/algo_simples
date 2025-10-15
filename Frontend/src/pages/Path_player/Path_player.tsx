@@ -1,10 +1,10 @@
 "use client"
 
-import type React from "react"
-import { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Task from "../../components/Task/Task"
-import Lesson from "../../components/lession/Lession"
+import LessonTemplate from "../../components/lession/LessonTemplate"
+import { lessonsData } from "../../components/lession/lessonsData"
 import "./path_player.css"
 
 const Path_player: React.FC = () => {
@@ -12,26 +12,26 @@ const Path_player: React.FC = () => {
   const [isTaskOpen, setIsTaskOpen] = useState(false)
   const [selectedTask, setSelectedTask] = useState<any>(null)
   const [isLessonActive, setIsLessonActive] = useState(false)
+  const [currentLessonIndex, setCurrentLessonIndex] = useState(0)
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [answers, setAnswers] = useState<boolean[]>([])
+  const [showSummary, setShowSummary] = useState(false)
+  const [startTime, setStartTime] = useState<number>(Date.now())
 
-  // Novos estados para pop-ups
+  // Login e registro
   const [showLogin, setShowLogin] = useState(false)
   const [showRegister, setShowRegister] = useState(false)
-
-  // Campos e mensagens para login
   const [loginEmail, setLoginEmail] = useState("")
   const [loginPassword, setLoginPassword] = useState("")
   const [loginError, setLoginError] = useState("")
-
-  // Campos e mensagens para cadastro
   const [registerName, setRegisterName] = useState("")
   const [registerEmail, setRegisterEmail] = useState("")
   const [registerPassword, setRegisterPassword] = useState("")
   const [registerError, setRegisterError] = useState("")
 
-  // Usuário logado
   const user = JSON.parse(localStorage.getItem("user") || "null")
 
-  // Função de login
+  // Funções de login
   const handleLogin = async () => {
     setLoginError("")
     try {
@@ -40,13 +40,10 @@ const Path_player: React.FC = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: loginEmail, password: loginPassword }),
       })
-
       const data = await res.json()
       if (!res.ok) throw new Error(data.message || "Erro no login")
-
       localStorage.setItem("token", data.token)
       localStorage.setItem("user", JSON.stringify(data.user))
-
       alert("✅ Login realizado com sucesso!")
       setShowLogin(false)
       window.location.reload()
@@ -68,10 +65,8 @@ const Path_player: React.FC = () => {
           password: registerPassword,
         }),
       })
-
       const data = await res.json()
       if (!res.ok) throw new Error(data.message || "Erro no cadastro")
-
       alert("✅ Cadastro realizado com sucesso!")
       setShowRegister(false)
       setShowLogin(true)
@@ -102,7 +97,20 @@ const Path_player: React.FC = () => {
     ],
   }
 
-  const handleNodeClick = () => {
+  // 📘 Funções das fases
+  const currentLesson = lessonsData[currentLessonIndex]
+  const totalQuestions = currentLesson.questions.length
+  const currentQuestion = currentLesson.questions[currentQuestionIndex]
+
+  useEffect(() => {
+    setCurrentQuestionIndex(0)
+    setAnswers([])
+    setShowSummary(false)
+    setStartTime(Date.now())
+  }, [currentLessonIndex])
+
+  const handleNodeClick = (index: number) => {
+    setCurrentLessonIndex(index)
     setSelectedTask(taskData)
     setIsTaskOpen(true)
   }
@@ -119,35 +127,75 @@ const Path_player: React.FC = () => {
   }
 
   const handleExitLesson = () => setIsLessonActive(false)
-  const handleLessonComplete = () => setIsLessonActive(false)
 
-  // Dados da lição
-  const lessonData = {
-    title: "Fundamentos dos Algoritmos de Ordenação",
-    content:
-      "Os algoritmos de ordenação são métodos utilizados para organizar dados em uma determinada ordem — geralmente crescente ou decrescente.",
-    explanation:
-      "O Bubble Sort troca repetidamente elementos adjacentes se estiverem na ordem errada. O Merge Sort divide a lista em partes e as une novamente em ordem. O Quick Sort escolhe um pivô e particiona os elementos ao redor dele.",
-    question: "Qual das afirmações abaixo é VERDADEIRA sobre os algoritmos de ordenação?",
-    alternatives: [
-      "O Merge Sort tem uma complexidade de tempo pior que o Bubble Sort.",
-      "O Quick Sort utiliza a técnica de dividir-para-conquistar.",
-      "O Bubble Sort é mais rápido que o Quick Sort para grandes conjuntos de dados.",
-      "Todos os algoritmos de ordenação funcionam em tempo constante.",
-    ],
-    correctAnswer: 1,
+  const handleAnswerComplete = (isCorrect: boolean) => {
+    setAnswers((prev) => [...prev, isCorrect])
+    setTimeout(() => {
+      if (currentQuestionIndex < totalQuestions - 1) {
+        setCurrentQuestionIndex((prev) => prev + 1)
+      } else {
+        setShowSummary(true)
+      }
+    }, 800)
   }
 
+  const handlePhaseComplete = () => {
+    if (currentLessonIndex < lessonsData.length - 1) {
+      setCurrentLessonIndex((prev) => prev + 1)
+      setIsLessonActive(false)
+    } else {
+      alert("🎉 Você completou todas as fases da jornada!")
+      setIsLessonActive(false)
+    }
+  }
+
+  // 🏁 Tela de resumo da fase
+  if (showSummary) {
+    const total = answers.length
+    const correct = answers.filter((a) => a).length
+    const wrong = total - correct
+    const timeTaken = Math.round((Date.now() - startTime) / 1000)
+
+    return (
+      <div className="summary-container">
+        <div className="summary-card">
+          <h1>🎉 Fase Concluída!</h1>
+          <h2>{currentLesson.title}</h2>
+          <p>
+            Você respondeu <b>{total}</b> perguntas em <b>{timeTaken}</b> segundos.
+          </p>
+          <p>
+            ✅ Acertos: <b>{correct}</b> &nbsp;&nbsp; ❌ Erros: <b>{wrong}</b>
+          </p>
+          <button className="continue-button" onClick={handlePhaseComplete}>
+            {currentLessonIndex < lessonsData.length - 1
+              ? "Avançar para a próxima fase"
+              : "Finalizar Jornada"}
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // 🔹 Modo de lição ativa
   if (isLessonActive) {
     return (
-      <Lesson
-        lessonData={lessonData}
-        onComplete={handleLessonComplete}
+      <LessonTemplate
+        key={`${currentLessonIndex}-${currentQuestionIndex}`}
+        lessonData={{
+          title: `${currentLesson.title} — Pergunta ${currentQuestionIndex + 1}/${totalQuestions}`,
+          question: currentQuestion.question,
+          alternatives: currentQuestion.alternatives,
+          correctAnswer: currentQuestion.correctAnswer,
+        }}
+        onComplete={() => handleAnswerComplete(true)}
+        onIncorrect={() => handleAnswerComplete(false)}
         onExit={handleExitLesson}
       />
     )
   }
 
+  // 🔹 Interface padrão
   return (
     <div className="app-container">
       <Sidebar activeItem={activeNavItem} onNavigate={navigator} />
@@ -165,30 +213,25 @@ const Path_player: React.FC = () => {
         <div className="learning-path">
           <div className="path-title">Fundamentos dos Algoritmos de Ordenação</div>
           <div className="path-nodes">
-            <div className="path-node completed" onClick={handleNodeClick}>
-              <div className="node-circle">
-                <span className="checkmark">✓</span>
-              </div>
-            </div>
-            <div className="path-connector"></div>
-            <div className="path-node completed" onClick={handleNodeClick}>
-              <div className="node-circle">
-                <span className="checkmark">✓</span>
-              </div>
-            </div>
-            <div className="path-connector"></div>
-            <div className="path-node completed" onClick={handleNodeClick}>
-              <div className="node-circle">
-                <span className="checkmark">✓</span>
-              </div>
-            </div>
+            {lessonsData.map((_, index) => (
+              <React.Fragment key={index}>
+                <div
+                  className="path-node completed"
+                  onClick={() => handleNodeClick(index)}
+                >
+                  <div className="node-circle">
+                    <span className="checkmark">✓</span>
+                  </div>
+                </div>
+                {index < lessonsData.length - 1 && <div className="path-connector"></div>}
+              </React.Fragment>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Barra Lateral Direita */}
+      {/* Barra lateral direita */}
       <div className="right-sidebar">
-        {/* Estatísticas */}
         <div className="stats">
           <div className="stat-item green">
             <span className="stat-icon">🔥</span>
@@ -204,7 +247,7 @@ const Path_player: React.FC = () => {
           </div>
         </div>
 
-        {/* Ações Rápidas */}
+        {/* Widgets e login mantidos */}
         <div className="widget">
           <div className="widget-header">
             <h3>Ações Rápidas</h3>
@@ -216,40 +259,6 @@ const Path_player: React.FC = () => {
           </div>
         </div>
 
-        {/* Atividades Recentes */}
-        <div className="widget">
-          <div className="widget-header">
-            <h3>Atividades Recentes</h3>
-          </div>
-          <div className="widget-content">
-            <div className="activity-list">
-              <div className="activity-item">
-                <div className="activity-icon">✅</div>
-                <div className="activity-text">
-                  <div>Quiz de Bubble Sort</div>
-                  <div className="activity-time">há 2 horas</div>
-                </div>
-              </div>
-              <div className="activity-item">
-                <div className="activity-icon">📚</div>
-                <div className="activity-text">
-                  <div>Lição de Merge Sort</div>
-                  <div className="activity-time">há 1 dia</div>
-                </div>
-              </div>
-              <div className="activity-item">
-                <div className="activity-icon">🎯</div>
-                <div className="activity-text">
-                  <div>Desafio de Quick Sort</div>
-                  <div className="activity-time">há 3 dias</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Widget de Login/Cadastro OU Perfil */}
-        {/* Login/Cadastro */}
         {!user && (
           <div className="widget login-widget">
             <div className="widget-header">
@@ -265,72 +274,38 @@ const Path_player: React.FC = () => {
             </div>
           </div>
         )}
-
       </div>
 
-      {/* POP-UP DE LOGIN */}
+      {/* POP-UP LOGIN */}
       {showLogin && (
         <div className="modal-overlay">
           <div className="modal">
             <button className="close-btn" onClick={() => setShowLogin(false)}>✕</button>
             <h2>Entrar</h2>
-            <input
-              type="email"
-              placeholder="E-mail"
-              value={loginEmail}
-              onChange={(e) => setLoginEmail(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Senha"
-              value={loginPassword}
-              onChange={(e) => setLoginPassword(e.target.value)}
-            />
+            <input type="email" placeholder="E-mail" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} />
+            <input type="password" placeholder="Senha" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} />
             {loginError && <p style={{ color: "red" }}>{loginError}</p>}
             <button className="confirm-btn-jorney" onClick={handleLogin}>Entrar</button>
-            <p className="modal-text">
-              Não tem conta?{" "}
-              <span onClick={() => { setShowLogin(false); setShowRegister(true); }}>Crie uma!</span>
-            </p>
           </div>
         </div>
       )}
 
-      {/* POP-UP DE CADASTRO */}
+      {/* POP-UP CADASTRO */}
       {showRegister && (
         <div className="modal-overlay">
           <div className="modal">
             <button className="close-btn" onClick={() => setShowRegister(false)}>✕</button>
             <h2>Criar Conta</h2>
-            <input
-              type="text"
-              placeholder="Nome"
-              value={registerName}
-              onChange={(e) => setRegisterName(e.target.value)}
-            />
-            <input
-              type="email"
-              placeholder="E-mail"
-              value={registerEmail}
-              onChange={(e) => setRegisterEmail(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Senha"
-              value={registerPassword}
-              onChange={(e) => setRegisterPassword(e.target.value)}
-            />
+            <input type="text" placeholder="Nome" value={registerName} onChange={(e) => setRegisterName(e.target.value)} />
+            <input type="email" placeholder="E-mail" value={registerEmail} onChange={(e) => setRegisterEmail(e.target.value)} />
+            <input type="password" placeholder="Senha" value={registerPassword} onChange={(e) => setRegisterPassword(e.target.value)} />
             {registerError && <p style={{ color: "red" }}>{registerError}</p>}
             <button className="confirm-btn-jorney" onClick={handleRegister}>Cadastrar</button>
-            <p className="modal-text">
-              Já tem uma conta?{" "}
-              <span onClick={() => { setShowRegister(false); setShowLogin(true); }}>Entrar</span>
-            </p>
           </div>
         </div>
       )}
 
-      {/* Modal da Tarefa */}
+      {/* Modal da tarefa */}
       {selectedTask && (
         <Task
           isOpen={isTaskOpen}
