@@ -225,7 +225,7 @@
 .lesson-left::-webkit-scrollbar-thumb,
 .lesson-right::-webkit-scrollbar-thumb {
   background: #475569;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 /* ====== RESPONSIVIDADE ====== */
