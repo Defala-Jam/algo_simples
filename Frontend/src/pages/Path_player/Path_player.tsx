@@ -17,6 +17,8 @@ const Path_player: React.FC = () => {
   const [answers, setAnswers] = useState<boolean[]>([])
   const [showSummary, setShowSummary] = useState(false)
   const [startTime, setStartTime] = useState<number>(Date.now())
+  // ✅ Controle das fases concluídas
+  const [completedLessons, setCompletedLessons] = useState<number[]>([])
 
   // Login e registro
   const [showLogin, setShowLogin] = useState(false)
@@ -140,14 +142,26 @@ const Path_player: React.FC = () => {
   }
 
   const handlePhaseComplete = () => {
+    // Marca a fase atual como concluída
+    setCompletedLessons((prev) =>
+      prev.includes(currentLessonIndex) ? prev : [...prev, currentLessonIndex]
+    )
+
+    // Se ainda houver fases, avança
     if (currentLessonIndex < lessonsData.length - 1) {
       setCurrentLessonIndex((prev) => prev + 1)
       setIsLessonActive(false)
+      setShowSummary(false)
     } else {
+      // Última fase concluída
       alert("🎉 Você completou todas as fases da jornada!")
       setIsLessonActive(false)
+      setShowSummary(false)
+      setCurrentLessonIndex(0) // volta ao início
     }
   }
+
+
 
   // 🏁 Tela de resumo da fase
   if (showSummary) {
@@ -214,19 +228,36 @@ const Path_player: React.FC = () => {
         <div className="learning-path">
           <div className="path-title">Fundamentos dos Algoritmos de Ordenação</div>
           <div className="path-nodes">
-            {lessonsData.map((_, index) => (
+          {lessonsData.map((_, index) => {
+            const isCompleted = completedLessons.includes(index)
+            const isCurrent = index === currentLessonIndex
+                    
+            return (
               <React.Fragment key={index}>
                 <div
-                  className="path-node completed"
+                  className={`path-node ${
+                    isCompleted ? "completed" : isCurrent ? "current" : "locked"
+                  }`}
                   onClick={() => handleNodeClick(index)}
                 >
                   <div className="node-circle">
-                    <span className="checkmark">✓</span>
+                    {isCompleted ? (
+                      <span className="checkmark">✓</span>
+                    ) : isCurrent ? (
+                      <span className="current-symbol">▶</span>
+                    ) : (
+                      <span className="locked-symbol">○</span>
+                    )}
                   </div>
                 </div>
-                {index < lessonsData.length - 1 && <div className="path-connector"></div>}
+                  
+                {index < lessonsData.length - 1 && (
+                  <div className="path-connector"></div>
+                )}
               </React.Fragment>
-            ))}
+            )
+          })}
+
           </div>
         </div>
       </div>
@@ -240,11 +271,11 @@ const Path_player: React.FC = () => {
           </div>
           <div className="stat-item orange">
             <span className="stat-icon">💎</span>
-            <span className="stat-number">{user?.diamonds ?? 17}</span>
+            <span className="stat-number">{user?.diamonds ??0}</span>
           </div>
           <div className="stat-item purple">
             <span className="stat-icon">⚡</span>
-            <span className="stat-number">{user?.xp ?? 5}</span>
+            <span className="stat-number">{user?.xp ?? 0}</span>
           </div>
         </div>
 
