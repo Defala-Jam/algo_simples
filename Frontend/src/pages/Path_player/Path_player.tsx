@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Task from "../../components/Task/Task"
 import LessonTemplate from "../../components/lession/LessonTemplate"
-import { lessonsData } from "../../components/lession/lessonsData"
+import { lessonsData } from "../../components/lession/lessionsData"
 import "./path_player.css"
 
 const Path_player: React.FC = () => {
@@ -185,6 +185,7 @@ const Path_player: React.FC = () => {
         lessonData={{
           title: `${currentLesson.title} — Pergunta ${currentQuestionIndex + 1}/${totalQuestions}`,
           question: currentQuestion.question,
+          explanation: currentQuestion.explanation, // <-- adicionado aqui ✅
           alternatives: currentQuestion.alternatives,
           correctAnswer: currentQuestion.correctAnswer,
         }}

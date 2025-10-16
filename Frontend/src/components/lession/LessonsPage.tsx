@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react"
 import LessonTemplate from "./LessonTemplate"
-import { lessonsData } from "./lessonsData"
+import { lessonsData } from "./lessionsData"
+console.log("🚀 lessonsData.ts carregado com sucesso!")
 
 const LessonsPage: React.FC = () => {
   const [currentLesson, setCurrentLesson] = useState(0)
@@ -10,6 +11,8 @@ const LessonsPage: React.FC = () => {
   const [answers, setAnswers] = useState<boolean[]>([])
   const [startTime, setStartTime] = useState<number>(Date.now())
   const [showSummary, setShowSummary] = useState(false)
+  console.log("✅ lessonsData carregado:", lessonsData)
+
 
   const currentPhase = lessonsData[currentLesson]
   const totalQuestions = currentPhase.questions.length
@@ -74,22 +77,25 @@ const LessonsPage: React.FC = () => {
     )
   }
 
-  return (
-    <LessonTemplate
-      key={`${currentLesson}-${currentQuestion}`}
-      lessonData={{
-        title: `${currentPhase.title} — Pergunta ${currentQuestion + 1}/${totalQuestions}`,
-        question: currentQuestionData.question,
-        alternatives: currentQuestionData.alternatives,
-        correctAnswer: currentQuestionData.correctAnswer,
-        explanation: currentQuestionData.explanation,
+console.log("currentQuestionData recebido:", currentQuestionData)
 
-      }}
-      onComplete={() => handleAnswerComplete(true)}
-      onIncorrect={() => handleAnswerComplete(false)}
-      onExit={handleExit}
-    />
-  )
+return (
+  <LessonTemplate
+    key={`${currentLesson}-${currentQuestion}-${currentQuestionData.question}`}
+    lessonData={{
+      title: `${currentPhase.title} — Pergunta ${currentQuestion + 1}/${totalQuestions}`,
+      question: currentQuestionData.question,
+      alternatives: [...currentQuestionData.alternatives],
+      correctAnswer: currentQuestionData.correctAnswer,
+      explanation: currentQuestionData.explanation ?? "", // garante string
+    }}
+    onComplete={() => handleAnswerComplete(true)}
+    onIncorrect={() => handleAnswerComplete(false)}
+    onExit={handleExit}
+  />
+)
+
+
 }
 
 export default LessonsPage

@@ -24,9 +24,6 @@ const Task: React.FC<TaskProps> = ({ isOpen, onClose, taskData, onStartLesson })
   return (
     <div className="task-overlay" onClick={onClose}>
       <div className="task-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="task-close" onClick={onClose}>
-          ✕
-        </button>
 
         <div className="task-header">
           <div className="task-icon">{taskData.icon}</div>
@@ -41,14 +38,14 @@ const Task: React.FC<TaskProps> = ({ isOpen, onClose, taskData, onStartLesson })
         </div>
 
         <div className="task-progress">
-          <span className="progress-label">Current Progress</span>
+          <span className="progress-label">Progresso</span>
           <span className="progress-value">{taskData.progress}%</span>
         </div>
 
         <div className="task-learning">
           <div className="learning-header">
             <span className="code-icon">{"<>"}</span>
-            <span className="learning-title">What you'll learn:</span>
+            <span className="learning-title">O que você irá aprender:</span>
           </div>
           <ul className="learning-list">
             {taskData.learningPoints.map((point, index) => (
@@ -59,10 +56,10 @@ const Task: React.FC<TaskProps> = ({ isOpen, onClose, taskData, onStartLesson })
 
         <div className="task-actions">
           <button className="task-cancel" onClick={onClose}>
-            ✕ Cancel
+            ✕ Cancelar
           </button>
           <button className="task-start" onClick={onStartLesson}>
-            ⚡ Start Lesson
+            Começar lição
           </button>
         </div>
       </div>

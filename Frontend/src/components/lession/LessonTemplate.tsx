@@ -28,6 +28,8 @@ const LessonTemplate: React.FC<LessonTemplateProps> = ({
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
 
+  console.log("lessonData recebido:", lessonData)
+
   const handleAnswerSelect = (index: number) => {
     if (!isSubmitted) setSelectedAnswer(index)
   }
@@ -35,29 +37,40 @@ const LessonTemplate: React.FC<LessonTemplateProps> = ({
   const handleSubmit = () => {
     if (selectedAnswer === null) return
     setIsSubmitted(true)
-
     const correct = selectedAnswer === lessonData.correctAnswer
     setIsCorrect(correct)
+  }
 
-    // ⏳ Aguarda 3 segundos mostrando explicação antes de ir para a próxima
-    setTimeout(() => {
-      if (correct) onComplete()
-      else onIncorrect()
-      // ❌ NÃO resetamos isSubmitted aqui — o LessonsPage faz isso ao mudar de pergunta
-      setSelectedAnswer(null)
-      setIsCorrect(null)
-    }, 3000)
+  const handleContinue = () => {
+    if (isCorrect) onComplete()
+    else onIncorrect()
+
+    // resetar estado da próxima questão
+    setSelectedAnswer(null)
+    setIsCorrect(null)
+    setIsSubmitted(false)
   }
 
   return (
     <div className="lesson-container">
-      {/* Lado esquerdo — título */}
+      {/* Lado esquerdo — explicação da pergunta atual */}
       <div className="lesson-left">
         <div className="lesson-header">
           <button className="lesson-exit" onClick={onExit}>
             ✕
           </button>
           <h1 className="lesson-title">{lessonData.title}</h1>
+        </div>
+
+        <div className="lesson-content">
+          <h2 className="content-heading">📘 Explicação / Teoria</h2>
+          {lessonData.explanation ? (
+            <p>{lessonData.explanation}</p>
+          ) : (
+            <p style={{ color: "#64748b" }}>
+              Nenhuma explicação disponível para esta pergunta.
+            </p>
+          )}
         </div>
       </div>
 
@@ -84,39 +97,40 @@ const LessonTemplate: React.FC<LessonTemplateProps> = ({
                 onClick={() => handleAnswerSelect(i)}
                 disabled={isSubmitted}
               >
-                <span className="alternative-letter">{String.fromCharCode(65 + i)}</span>
+                <span className="alternative-letter">
+                  {String.fromCharCode(65 + i)}
+                </span>
                 <span className="alternative-text">{alt}</span>
               </button>
             ))}
           </div>
 
           {isSubmitted && (
-            <>
-              <div
-                className={`feedback ${
-                  isCorrect ? "correct-feedback" : "incorrect-feedback"
-                }`}
-              >
-                {isCorrect ? "🎉 Parabéns! Resposta correta!" : "💭 Resposta incorreta!"}
-              </div>
-
-              {lessonData.explanation && (
-                <div className="explanation-box">
-                  <h3>🧩 Explicação:</h3>
-                  <p>{lessonData.explanation}</p>
-                </div>
-              )}
-            </>
+            <div
+              className={`feedback ${
+                isCorrect ? "correct-feedback" : "incorrect-feedback"
+              }`}
+            >
+              {isCorrect
+                ? "🎉 Parabéns! Resposta correta!"
+                : "💭 Resposta incorreta!"}
+            </div>
           )}
 
           <div className="action-buttons">
-            <button
-              className="submit-button"
-              onClick={handleSubmit}
-              disabled={selectedAnswer === null || isSubmitted}
-            >
-              Confirmar Resposta
-            </button>
+            {!isSubmitted ? (
+              <button
+                className="submit-button"
+                onClick={handleSubmit}
+                disabled={selectedAnswer === null}
+              >
+                Confirmar Resposta
+              </button>
+            ) : (
+              <button className="continue-button" onClick={handleContinue}>
+                Continuar →
+              </button>
+            )}
           </div>
         </div>
       </div>

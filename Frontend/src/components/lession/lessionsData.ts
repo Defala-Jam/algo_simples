@@ -15,6 +15,7 @@ export const lessonsData = [
         explanation:
           "O Bubble Sort funciona trocando repetidamente pares de elementos adjacentes fora de ordem até que toda a lista esteja ordenada."
       },
+
       {
         question: "A complexidade de tempo média do Bubble Sort é:",
         alternatives: ["O(n)", "O(n log n)", "O(n²)", "O(1)"],
